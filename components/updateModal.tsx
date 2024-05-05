@@ -40,7 +40,10 @@ export const UpdateMealModal : React.FC<DialogWrapperProps> = ({
     const currentDate = new Date();
     const currentHour = currentDate.getHours();
   const currentMinutes = currentDate.getMinutes();
-  const newDateFormat = formatTimestamp(currentDate.toLocaleString(),'new')
+  let newDateFormat = formatTimestamp(currentDate.toLocaleString(),'new');
+
+  const tomorrow = new Date(currentDate);
+  tomorrow.setDate(tomorrow.getDate() + 1);
     
 
     const [selectedMeal, setSelectedMeal] = useState<string>('chicken');
@@ -80,6 +83,9 @@ export const UpdateMealModal : React.FC<DialogWrapperProps> = ({
       // console.log(showModalType);
       setStatusDone(true);
       const id = getCookie(userid);
+      if(showModalType === 'lunch' && currentHour >=18 ){
+        newDateFormat = formatTimestamp(tomorrow.toLocaleString(),'new');
+      }
     
     const responseValue = await updateMeal(newDateFormat,selectedMeal, count, selectComment,showModalType, id)
        console.log(responseValue);
@@ -96,10 +102,10 @@ export const UpdateMealModal : React.FC<DialogWrapperProps> = ({
 
 
   useEffect(() => {
-      if (currentHour > 9 || (currentHour === 9 && currentMinutes > 0)) {
-        setShowModalType('lunch');
-      } else {
+      if ((currentHour >= 9 && currentHour <18) ) {
         setShowModalType('dinner');
+      } else {
+        setShowModalType('lunch');
       }
      
   }, []);
