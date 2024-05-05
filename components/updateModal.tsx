@@ -38,7 +38,7 @@ export const UpdateMealModal : React.FC<DialogWrapperProps> = ({
     children,
   }) => {
     const currentDate = new Date();
-    const currentHour = currentDate.getHours() + 6;
+    const currentHour = currentDate.getHours();
   const currentMinutes = currentDate.getMinutes();
   const newDateFormat = formatTimestamp(currentDate.toLocaleString(),'new')
     
