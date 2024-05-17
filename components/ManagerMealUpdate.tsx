@@ -62,7 +62,7 @@ export const ManagerMealUpdateModal: React.FC<DialogWrapperProps> = ({
    const str = selectLunchCount;
      const count = parseInt(str);
     
-     const responseValue = await updateMeal(newDateFormat,selectedMeal, count, selectComment,showModalType, selectPlayer)
+     const responseValue = await updateMeal(selectedDate,selectedMeal, count, selectComment,showModalType, selectPlayer)
     //    console.log(responseValue);
 } catch (error) {
       console.error('Error fetching lunch count:', error);
